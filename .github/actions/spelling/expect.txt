@@ -1,7 +1,6 @@
 ABCDEFGHIJKLMNOPQRSTUVWXY
 activeline
 allowtransparency
-alse
 amd
 anilist
 api
@@ -31,13 +30,10 @@ chrisbottin
 cloudinary
 cmake
 codelines
-codemirror
 codeql
 coingecko
 colorsets
 Consolas
-coord
-csso
 CVE
 cwd
 dajneem
@@ -45,7 +41,6 @@ datapoints
 dded
 dependabot
 deployer
-deps
 dessant
 destructuring
 Dexcom
@@ -79,19 +74,15 @@ eugeneware
 euo
 eur
 eviewed
-expr
 expressjs
 extracter
 extralarge
-facebook
-favicon
 favourites
 FEmusic
 filesize
 filesloop
 Firefox
 firstname
-Fnc
 foliojs
 forkee
 FORTYFIVEDOWN
@@ -110,7 +101,6 @@ ghactions
 ghcr
 ghquery
 gifencoder
-gionkunz
 Gister
 githubs
 githubusercontent
@@ -120,7 +110,6 @@ Gmap
 gnupg
 gnuplot
 Gollum
-google
 googlechrome
 gpg
 grep
@@ -157,7 +146,6 @@ ipafont
 ipsum
 isaacs
 isocalendar
-itemprop
 itunes
 jellyfin
 jpy
@@ -194,7 +182,6 @@ lstat
 mangas
 markedjs
 marudor
-matchingbracket
 matievisthekat
 maxage
 maxusers
@@ -220,7 +207,6 @@ Nixinova
 NOASSERTION
 nocase
 nodeca
-nodejs
 notoken
 octicon
 OCTO
@@ -236,8 +222,6 @@ orked
 pageerror
 pagespeed
 pagespeedonline
-panosoft
-params
 patchnote
 pdated
 pened
@@ -245,7 +229,6 @@ PGP
 pipefail
 playcount
 playlists
-plugin
 poopmap
 practicaldev
 prettylights
@@ -266,10 +249,8 @@ rbren
 rcopy
 readdir
 readme
-readonly
 reated
 recenttracks
-regexp
 rlreset
 rssi
 runsh
@@ -278,11 +259,9 @@ SAPISID
 SAPISIDHASH
 scorecalc
 screenshot
-SDKs
 Segoe
 selfhosted
 seo
-Serializer
 sgit
 sgv
 shipit
@@ -332,7 +311,7 @@ tracklist
 transfonter
 trollface
 TSLA
-twemoji
+twemojis
 uapi
 uconf
 uid
@@ -342,10 +321,9 @@ undef
 underlinenav
 Unescape
 upcase
-upvote
+upvotes
 urgenthighalert
 urgentlowalert
-uri
 urlencoded
 URLTo
 usd
@@ -353,9 +331,7 @@ usermod
 usernames
 ushed
 usr
-utf
 utm
-vercel
 vnd
 vuejs
 waifus
@@ -363,7 +339,6 @@ wakapi
 wakatime
 wasm
 webhooks
-webserver
 website
 wget
 whitelisted
