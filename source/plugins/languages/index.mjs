@@ -41,6 +41,31 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     colors = Object.fromEntries(decodeURIComponent(colors).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => x).map(x => x.split(":").map(x => x.trim())))
     console.debug(`metrics/compute/${login}/plugins > languages > custom colors ${JSON.stringify(colors)}`)
 
+    // Fine-grained tokens can authenticate GraphQL successfully while only
+    // exposing repositories explicitly selected for the token. Fall back to
+    // public REST endpoints when that leaves the owned repository list empty.
+    if ((context.mode === "user") && (!data.user.repositories.nodes.length)) {
+      console.debug(`metrics/compute/${login}/plugins > languages > no GraphQL repositories, falling back to REST`)
+      const repositories = (await rest.paginate(rest.repos.listForUser, {
+        username: login,
+        type: "owner",
+        sort: "pushed",
+        per_page: 100,
+      })).filter(repository => !repository.fork).slice(0, 100)
+      data.user.repositories.nodes = await Promise.all(repositories.map(async repository => ({
+        name: repository.name,
+        nameWithOwner: repository.full_name,
+        owner: {login: repository.owner.login},
+        languages: {
+          edges: Object.entries((await rest.repos.listLanguages({owner: repository.owner.login, repo: repository.name})).data).map(([name, size]) => ({
+            size,
+            node: {name, color: null},
+          })),
+        },
+      })))
+      console.debug(`metrics/compute/${login}/plugins > languages > loaded ${data.user.repositories.nodes.length} repositories from REST`)
+    }
+
     //Unique languages
     const repositories = context.mode === "repository" ? data.user.repositories.nodes : [...data.user.repositories.nodes, ...data.user.repositoriesContributedTo.nodes]
     const unique = new Set(repositories.flatMap(repository => repository.languages.edges.map(({node: {name}}) => name))).size
