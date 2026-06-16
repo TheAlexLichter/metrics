@@ -4,6 +4,7 @@ allowtransparency
 alse
 amd
 anilist
+api
 apidojo
 apostrophecms
 argv
@@ -194,6 +195,7 @@ mbid
 mde
 mergeability
 mergeable
+microsoft
 middlewares
 mkdir
 mockresize
@@ -263,9 +265,11 @@ regexp
 rlreset
 rssi
 runsh
+saml
 SAPISID
 SAPISIDHASH
 scorecalc
+screenshot
 screenshots
 SDKs
 Segoe
@@ -305,6 +309,7 @@ sysadmin
 systemctl
 systemd
 tempdir
+templated
 templating
 testapp
 testcase
@@ -349,6 +354,7 @@ wakapi
 wakatime
 wasm
 webserver
+website
 websites
 wget
 whitelisted
@@ -358,6 +364,10 @@ wikipedia
 wontfix
 workaround
 WORKDIR
+Workflow
+workflow
+Workflows
+workflows
 worldmap
 wqy
 wsl
