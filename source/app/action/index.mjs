@@ -102,9 +102,9 @@ function quit(reason) {
     info("Setup", "complete")
     info("Version", conf.package.version)
 
-    //Docker run environment default values
+    //Local execution default values
     if (!metadata.env.ghactions) {
-      info("Docker environment", "(enabled)")
+      info("Local environment", "(enabled)")
       process.env.INPUT_OUTPUT_ACTION = process.env.INPUT_OUTPUT_ACTION ?? "none"
       process.env.INPUT_COMMITTER_TOKEN = process.env.INPUT_COMMITTER_TOKEN ?? process.env.INPUT_TOKEN
       process.env.GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY ?? "octocat/hello-world"
@@ -133,7 +133,6 @@ function quit(reason) {
       "committer.branch": _branch,
       "committer.message": _message,
       "committer.gist": _gist,
-      "use.prebuilt.image": _image,
       retries,
       "retries.delay": retries_delay,
       "retries.output.action": retries_output_action,
@@ -154,10 +153,6 @@ function quit(reason) {
     const _output = ["svg", "jpeg", "png", "json", "markdown", "markdown-pdf", "insights"].includes(config["config.output"]) ? config["config.output"] : metadata.templates[template]?.formats?.[0] ?? null
     const filename = _filename.replace(/[*]/g, {jpeg: "jpg", markdown: "md", "markdown-pdf": "pdf", insights: "html"}[_output] ?? _output ?? "*")
 
-    //Docker image
-    if (_image)
-      info("Using prebuilt image", _image)
-
     //Debug mode and flags
     info("Debug mode", debug)
     if (!debug) {
@@ -174,8 +169,6 @@ function quit(reason) {
     info("GitHub token format", /^github_pat_/.test(token) ? "fine-grained" : /^gh[pousr]_/.test(token) ? "classic" : "legacy or invalid")
     if (!token)
       throw new Error("You must provide a valid GitHub personal token to gather your metrics (see https://github.com/lowlighter/metrics/blob/master/.github/readme/partials/documentation/setup/action.md for more informations)")
-    if (/^github_pat_/.test(token))
-      throw new Error("It seems you're trying to use a fine-grained personal access token. These are currently unsupported as GitHub does not support them (yet?) for GraphQL API authentication (see https://docs.github.com/fr/graphql/guides/forming-calls-with-graphql#authenticating-with-graphql for more informations). Use a classic token instead.")
     conf.settings.token = token
     const api = {}
     const resources = {}
@@ -466,11 +459,12 @@ function quit(reason) {
     }
 
     //Save output to renders output folder
+    const renders = process.env.METRICS_RENDERS ?? "/renders"
     if (dryrun)
       info("Actions to perform", "(none)")
     else {
-      await fs.mkdir(paths.dirname(paths.join("/renders", filename)), {recursive: true})
-      await fs.writeFile(paths.join("/renders", filename), buffer.content)
+      await fs.mkdir(paths.dirname(paths.join(renders, filename)), {recursive: true})
+      await fs.writeFile(paths.join(renders, filename), buffer.content)
       info(`Save to /metrics_renders/${filename}`, "ok")
       info("Output action", _action)
     }
@@ -523,14 +517,14 @@ function quit(reason) {
           }, {retries: retries_output_action, delay: retries_delay_output_action})
         }
         buffer.content = rendered
-        await fs.writeFile(paths.join("/renders", filename), buffer.content)
+        await fs.writeFile(paths.join(renders, filename), buffer.content)
         info(`Update /metrics_renders/${filename}`, "ok")
       }
 
       //Check changes
       if ((committer.commit) || (committer.pr)) {
         const git = sgit()
-        const sha = await git.hashObject(paths.join("/renders", filename))
+        const sha = await git.hashObject(paths.join(renders, filename))
         info("Current render sha", sha)
         if (committer.sha === sha) {
           info(`Commit to branch ${committer.branch}`, "(no changes)")

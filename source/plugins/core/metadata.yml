@@ -491,17 +491,6 @@ inputs:
   # ====================================================================================
   # 🚧 Options below are mostly used for testing
 
-  use_prebuilt_image:
-    description: |
-      Use pre-built docker image from [GitHub container registry](https://github.com/lowlighter/metrics/pkgs/container/metrics)
-
-      It allows to save build time and make job significantly faster, and there is almost no reason to disable this settings.
-      This option has no effects on forks (images will always be rebuilt from Dockerfile)
-    type: boolean
-    default: yes
-    testing: yes
-    preset: no
-
   plugins_errors_fatal:
     description: |
       Fatal plugin errors
