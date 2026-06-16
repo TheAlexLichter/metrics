@@ -4,6 +4,10 @@ on:
   push:
     branches: [ master ]
 
+concurrency:
+  group: continuous-integration-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
 
   # Build, test and analyze
@@ -17,7 +21,7 @@ jobs:
     name: Format code
     runs-on: ubuntu-latest
     needs: [ build-test-analyze ]
-    if: always() && (needs.build-test-analyze.result == 'success' || needs.build-test-analyze.result == 'skipped')
+    if: github.repository == 'lowlighter/metrics' && always() && (needs.build-test-analyze.result == 'success' || needs.build-test-analyze.result == 'skipped')
     steps:
       - name: Checkout repository
         uses: actions/checkout@9f698171ed81b15d1823a05fc7211befd50c8ae0 # v6.0.3
