@@ -1,4 +1,5 @@
 //Imports
+import yaml from "js-yaml"
 import { indepth as indepth_analyzer, recent as recent_analyzer } from "./analyzers.mjs"
 
 //Setup
@@ -53,6 +54,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
         per_page: 100,
       })
       const repositories = listed.filter(repository => !repository.fork)
+      const linguist = yaml.load(`${await imports.fs.readFile(imports.paths.join(imports.__module(import.meta.url), "../../../node_modules/linguist-js/ext/languages.yml"))}`)
       data.user.repositories.nodes = await Promise.all(repositories.map(async repository => ({
         name: repository.name,
         nameWithOwner: repository.full_name,
@@ -60,7 +62,7 @@ export default async function({login, data, imports, q, rest, account}, {enabled
         languages: {
           edges: Object.entries((await rest.repos.listLanguages({owner: repository.owner.login, repo: repository.name}).catch(() => ({data: {}}))).data).map(([name, size]) => ({
             size,
-            node: {name, color: null},
+            node: {name, color: linguist[name]?.color ?? null},
           })),
         },
       })))
