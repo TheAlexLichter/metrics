@@ -64,7 +64,6 @@ jobs:
           cspell:fullstack/dict/fullstack.txt
           cspell:django/dict/django.txt
           cspell:npm/dict/npm.txt
-          cspell:aws/dict/aws.txt
         check_extra_dictionaries: ''
 
   comment:

@@ -33,7 +33,6 @@ cmake
 codelines
 codemirror
 codeql
-Coingecko
 coingecko
 colorsets
 Consolas
@@ -279,7 +278,6 @@ SAPISID
 SAPISIDHASH
 scorecalc
 screenshot
-screenshots
 SDKs
 Segoe
 selfhosted
@@ -367,7 +365,6 @@ wasm
 webhooks
 webserver
 website
-websites
 wget
 whitelisted
 whoami
@@ -376,10 +373,7 @@ wikipedia
 wontfix
 workaround
 WORKDIR
-Workflow
 workflow
-Workflows
-workflows
 worldmap
 wqy
 wsl
