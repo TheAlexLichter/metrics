@@ -55,13 +55,13 @@ jobs:
         checkout: true
         post_comment: 0
         extra_dictionaries:
-          cspell:html/html.txt
+          cspell:html/dict/html.txt
           cspell:filetypes/filetypes.txt
-          cspell:css/css.txt
-          cspell:fullstack/fullstack.txt
-          cspell:django/django.txt
-          cspell:npm/npm.txt
-          cspell:aws/aws.txt
+          cspell:css/dict/css.txt
+          cspell:fullstack/dict/fullstack.txt
+          cspell:django/dict/django.txt
+          cspell:npm/dict/npm.txt
+          cspell:aws/dict/aws.txt
         check_extra_dictionaries: ''
 
   comment:
