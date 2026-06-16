@@ -41,9 +41,9 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     colors = Object.fromEntries(decodeURIComponent(colors).split(",").map(x => x.trim().toLocaleLowerCase()).filter(x => x).map(x => x.split(":").map(x => x.trim())))
     console.debug(`metrics/compute/${login}/plugins > languages > custom colors ${JSON.stringify(colors)}`)
 
-    // Fine-grained tokens can authenticate GraphQL successfully while only
-    // exposing repositories explicitly selected for the token. Fall back to
-    // public REST endpoints when that leaves the owned repository list empty.
+    //Fine-grained tokens can authenticate GraphQL successfully while only
+    //exposing repositories explicitly selected for the token. Fall back to
+    //public REST endpoints when that leaves the owned repository list empty.
     if ((context.mode === "user") && (!data.user.repositories.nodes.length)) {
       console.debug(`metrics/compute/${login}/plugins > languages > no GraphQL repositories, falling back to REST`)
       const repositories = (await rest.paginate(rest.repos.listForUser, {
