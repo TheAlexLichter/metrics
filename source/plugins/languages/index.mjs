@@ -46,18 +46,19 @@ export default async function({login, data, imports, q, rest, account}, {enabled
     //public REST endpoints when that leaves the owned repository list empty.
     if ((context.mode === "user") && (!data.user.repositories.nodes.length)) {
       console.debug(`metrics/compute/${login}/plugins > languages > no GraphQL repositories, falling back to REST`)
-      const repositories = (await rest.paginate(rest.repos.listForUser, {
+      const {data: listed} = await rest.repos.listForUser({
         username: login,
         type: "owner",
         sort: "pushed",
         per_page: 100,
-      })).filter(repository => !repository.fork).slice(0, 100)
+      })
+      const repositories = listed.filter(repository => !repository.fork)
       data.user.repositories.nodes = await Promise.all(repositories.map(async repository => ({
         name: repository.name,
         nameWithOwner: repository.full_name,
         owner: {login: repository.owner.login},
         languages: {
-          edges: Object.entries((await rest.repos.listLanguages({owner: repository.owner.login, repo: repository.name})).data).map(([name, size]) => ({
+          edges: Object.entries((await rest.repos.listLanguages({owner: repository.owner.login, repo: repository.name}).catch(() => ({data: {}}))).data).map(([name, size]) => ({
             size,
             node: {name, color: null},
           })),
