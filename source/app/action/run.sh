@@ -3,6 +3,7 @@ set -euo pipefail
 echo "::group::Metrics native setup"
 echo "GitHub action: $METRICS_ACTION ($METRICS_ACTION_PATH)"
 cd "$METRICS_ACTION_PATH"
+MISSING_DEPENDENCIES=0
 for DEPENDENCY in jq node npm; do
   if ! which $DEPENDENCY > /dev/null 2>&1; then
     echo "::error::\"$DEPENDENCY\" is not installed on current runner but is needed to run metrics"
