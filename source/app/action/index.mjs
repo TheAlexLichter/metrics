@@ -691,7 +691,7 @@ function quit(reason) {
       info("  * provided that no other app used your quota during execution", "")
       const {data: current} = await rest.rateLimit.get().catch(() => ({data: {resources: {}}}))
       for (const type of ["core", "graphql", "search"]) {
-        const used = resources[type].remaining - current.resources[type].remaining
+        const used = resources[type]?.remaining - current.resources?.[type]?.remaining
         info({core: "REST API", graphql: "GraphQL API", search: "Search API"}[type], (Number.isFinite(used) && (used >= 0)) ? used : "(unknown)")
       }
     }
